@@ -4,6 +4,7 @@
 Makefile
 Remove few other hardcode.
 
+Library used: zmq, curl and pthread
 current make : make.sh
 invooking 
 ./server.out - preferable as bg process
