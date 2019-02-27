@@ -1,0 +1,16 @@
+#This is first draft of client/server model socket programming(based on zmq) where client requests server of the weather details from api.weathermap.org OWM. The REST api is curl implementation. The server is multithreaded with the pthread framework
+
+//TODO integration of the curl based (REST API POST calls) into the server/client model.
+Makefile
+Remove few other hardcode.
+
+current make : make.sh
+invooking 
+./server.out - preferable as bg process
+
+./client.out <portno> <message_code> 
+
+./curl.out <url>
+
+
+
