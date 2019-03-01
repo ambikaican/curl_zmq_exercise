@@ -85,6 +85,6 @@ public:
 		sprintf(buf, "zip=%s&&appid=%s", \
 				zip_code,appid.c_str());
 		query_url.assign(buf);
-		std::cout<< buf << "\nServer " <<query_url.c_str() << std::endl;
+		//std::cout<< buf << "\nServer " <<query_url.c_str() << std::endl;
 		json_curl_main(query_url);
 	}
