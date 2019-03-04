@@ -1,8 +1,12 @@
 #This is a client/server model socket programming(based on zmq) where client requests server of the weather details from api.weathermap.org OWM. The REST api is curl implementation. The server is multithreaded with the pthread framework
 
+Pre requiste:
 Makefile - needs modification(CFLAGS and LFLAGS) depending on the development environment installation 
+appid.txt - Fill in with the app KEY from registering api.openweathermap.org website
 Library used: jsoncpp, zmq, curl and pthread
 
+
+Running the program
 invoking 
 ./server - preferable as bg process
 
@@ -11,6 +15,8 @@ invoking
          2 <longitude> <latitude>
          3 <cityname>
          4 <zipcode>
+         
+         
 
 
 
