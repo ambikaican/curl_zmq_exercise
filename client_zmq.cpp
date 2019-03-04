@@ -1,6 +1,7 @@
 #include <zmq.hpp>
 #include <string>
 #include <iostream>
+#include <cstdlib>
 #include "common.hpp"
 
 
@@ -37,10 +38,10 @@ int main (int argc, char *argv[])
     assert(socket);
     weather_msg wmsg;
     int request_size = sizeof(weather_msg_t);
-    zmq::message_t request(request_size);
+    //zmq::message_t request(request_size);
     char w_msg[100]; //TODO
-    //memset(&wmsg, '0', sizeof(weather_msg_t));  
-    port_num = 5550 + (rand() % 5); 
+    memset(&wmsg, '\0', 100);  
+    port_num = 5550 + ((rand() % 5 )); 
     sprintf(port, "tcp://localhost:%d", port_num);
     std::cout << "Connecting to server…" << port_num << std::endl;
     rc = zmq_connect (socket, port);
@@ -48,10 +49,6 @@ int main (int argc, char *argv[])
     
     wmsg.message_code = (argc >= 2) ? atoi(argv[1]): 1;
     INITIAL_SETTING;
-    std::cout << "Client: Setting " << \
-	    wmsg.message_code << \
-	    wmsg.city_id << \
-	    wmsg.lon << "…" << std::endl;
 
     switch(wmsg.message_code) {
 	    case wmsg.GET_BY_CITY_ID:
@@ -81,8 +78,10 @@ int main (int argc, char *argv[])
 	    wmsg.city_name.c_str() << "\n"  << \
 	    wmsg.zip_code << "…" << std::endl;
     rc = zmq_send (socket, &w_msg, request_size, 0);
-    char reply[5];
-    zmq_recv (socket, reply, 5, 0);
-    std::cout << "Client: Received Temp " << reply << std::endl;
+    char reply[100]; //TODO - based on weather_msg_t
+    memset(reply, '\0', 100); 
+    rc = zmq_recv (socket, reply, 100, 0);
+    std::cout << "Client: Received Temp details:\n\n " \
+	    << reply << std::endl;
     return 0;
 }

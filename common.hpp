@@ -19,10 +19,10 @@ class weather_msg
 	float lat;
 	std::string city_name;
 	char zip_code[10];
-	int getCurrentTemp(int city_id);
-	int getCurrentTemp(float lon, float lat);
-	int getCurrentTemp(std::string city_name);
-	int getCurrentTemp(char zip_code[]);
+	int getCurrentTemp(int city_id, std::string *output_buf);
+	int getCurrentTemp(float lon, float lat, std::string *output_buf);
+	int getCurrentTemp(std::string city_name, std::string *output_buf);
+	int getCurrentTemp(char zip_code[], std::string *output_buf);
 }weather_msg_t;
 		
 		

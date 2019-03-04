@@ -1,16 +1,12 @@
 #include <iostream>
-#include <string>
+#include <cstring>
+#include <unistd.h>
 #include <curl/curl.h>
 #include <json/value.h>
 #include <fstream>
 #include <json/reader.h>
-//#include <server_hdr.hpp>
-
 
 #define URL_STATIC "api.openweathermap.org/data/2.5/weather?"
-
-
-
 
 
 static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp)
@@ -44,12 +40,12 @@ std::string curl_function(std::string query)
     
     curl_easy_cleanup(curl);
 
-    //std::cout << readBuffer << "\n\n\n" << std::endl;
+    std::cout << url.c_str() << "\n\n\n"  << readBuffer  << std::endl;
   }
   return readBuffer;
 }
 
-int json_curl_main(std::string query)
+char * json_curl_main(std::string query)
 {
     std::string readBuffer, temp_buf;
     Json::Reader reader;
@@ -58,12 +54,18 @@ int json_curl_main(std::string query)
     std::string cityname;
     int rc = 0;
     readBuffer = curl_function(query);
-    //std::cout << readBuffer << "\n" << std::endl;
     rc = reader.parse(readBuffer, val_field);
     temp = val_field["main"]["temp"].asFloat();
     cityname = val_field["name"].asString();
-    std::cout <<"***Required output**\n";		    
-    std::cout << cityname.c_str() << " " << temp<< std::endl;
-
+    char *output_buf = new char[50];
+    memset((void *)output_buf, '\0', 50);
+    if (temp == 0.0) {
+    	sprintf(output_buf, 
+		"Error: Data for requested input - NOT FOUND\n");  
+    } else { 
+    	sprintf(output_buf, "%s - %f", cityname.c_str(), temp);
+    }	
+    std::cout <<"Server: Send output**\n" << output_buf << std::endl;		    
+    return output_buf;
 
 }

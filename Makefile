@@ -13,18 +13,18 @@ client_zmq.o: client_zmq.cpp
 server: curl_detail.o server_zmq.o
 	$(CC) -o $@ $^  $(LDFLAGS1) $(LDFLAGS2)
 
-server_zmq.o: server_zmq.cpp
+server_zmq.o: server_zmq.cpp 
 	$(CC) -c $(CFLAGS) $<
 
-curl_server.o: curl_detail.cpp
+curl_detail.o: curl_detail.cpp 
 	$(CC) -c $(CFLAGS) $<
 
 
-.PHONY: clean cleanest
+.PHONY: clean 
 
 clean:
 	rm *.o
+	rm server 
+	rm client
 
-cleanest: clean
-	rm octhecdec
 
